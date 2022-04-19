@@ -1,0 +1,74 @@
+{
+  "name": "@magicwarehq/nestjs-utils",
+  "version": "1.0.0",
+  "description": "Nestjs Utilities for NestJS based projects",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.js",
+  "license": "UNLICENSED",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.mjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable",
+    "build": "npm run build:cjs && npm run build:esm && npm run build:types",
+    "build:cjs": "node tools/cleanup cjs && tsc -p config/tsconfig.cjs.json",
+    "build:esm": "node tools/cleanup esm && tsc -p config/tsconfig.esm.json",
+    "build:types": "node tools/cleanup types && tsc -p config/tsconfig.types.json",
+    "clean": "node tools/cleanup",
+    "package": "npm run build && npm pack",
+    "test": "jest --no-cache --runInBand",
+    "test:cov": "jest --coverage --no-cache --runInBand",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "addscope": "node tools/packagejson name @magicwarehq/nestjs-utils"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/magicwarehq/nestjs-utils",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:magicwarehq/nestjs-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/magicwarehq/nestjs-utils/issues"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^7.0.2",
+    "jest": "^27.2.0",
+    "pinst": "^2.1.6",
+    "prettier": "^2.4.0",
+    "ts-jest": "^27.0.5",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.3",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^8.4.4",
+    "@nestjs/cqrs": "^8.0.3",
+    "@nestjs/graphql": "^10.0.9",
+    "@types/uuid": "^8.3.4",
+    "shallow-equal-object": "^1.1.1",
+    "uuid": "^8.3.2"
+  }
+}
